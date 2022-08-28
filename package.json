@@ -16,9 +16,11 @@
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
     "astro": "^1.0.6",
-    "preact": "^10.6.5"
+    "preact": "^10.6.5",
+    "sass": "^1.54.5"
   },
   "dependencies": {
-    "@astrojs/prism": "^1.0.1"
+    "@astrojs/prism": "^1.0.1",
+    "date-fns": "^2.29.2"
   }
 }

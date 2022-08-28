@@ -1,7 +1,11 @@
 ---
+import { intlFormatDistance } from "date-fns";
+
+import Intro from "../components/Intro.astro";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
 
 const posts = await Astro.glob("../posts/*.mdx");
 ---
@@ -11,22 +15,33 @@ const posts = await Astro.glob("../posts/*.mdx");
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="w-full min-h-screen bg-[#111] text-white">
+	<body
+		class="w-full flex flex-col items-center min-h-screen bg-[#111] text-white"
+	>
 		<Layout>
-			{
-				posts.map((post) => (
-					<a href={`/${post.frontmatter.name}`}>
-						<div class="py-4">
-							<h2 class="text-white text-3xl font-semibold">
-								{post.frontmatter.name}
-							</h2>
-							<p class="text-white">
-								{post.frontmatter.description}
-							</p>
-						</div>
-					</a>
-				))
-			}
+			<Intro />
+			<div>
+				<h2 class="text-2xl font-semibold pt-6">All Posts</h2>
+				{
+					posts.map((post) => (
+						<a href={`/${post.frontmatter.name}`}>
+							<div class="text-white mt-6 hover:scale-105 transition ease-out duration-100 ">
+								<h2 class="text-white text-3xl lg:text-4xl font-bold">
+									{post.frontmatter.name}
+								</h2>
+								<p>{post.frontmatter.description}</p>
+								<div class="text-sm pt-2 font-bold">
+									{intlFormatDistance(
+										new Date(`${post.frontmatter.date}`),
+										new Date()
+									)}
+								</div>
+							</div>
+						</a>
+					))
+				}
+			</div>
 		</Layout>
+		<Footer />
 	</body>
 </html>

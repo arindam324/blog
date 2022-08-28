@@ -1,0 +1,157 @@
+---
+name: how to make a task manager using React js and localstorage
+description: in this blog we are making a task manager app using React and localstorage for storage
+date: 2022-08-20
+---
+
+first we are going to create a React project .To create a project we are gonna use [vite](https://vitejs.dev/). to start a new Project
+
+<div class="my-4">
+
+```bash
+    vite create task-manager
+    cd task-manager
+```
+
+</div>
+
+I'm going to use [TAILWIND-CSS](https://tailwindcss.com/) for styling for this project.To install tailwindcss type
+
+<div class="my-4">
+
+```bash
+    yarn add -D tailwindcss autoprefixer postcss
+    npx tailwindcss init
+```
+
+</div>
+
+Add content in `tailwind.config.js`
+
+<div class="my-4">
+```js
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+</div>
+
+```
+├── src
+│   ├── index.tsx
+|   ├── components
+|   |   ├── Layout.tsx
+├── public
+│   ├── images
+│   ├── js
+│   ├── index.html
+├── dist (or build
+├── node_modules
+├── package.json
+├── package-lock.json
+└── .gitignore
+```
+
+<div class="my-4">
+#### **`Layout.tsx`**
+```tsx
+import { ReactNode } from "react";
+
+const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
+return <div className="max-w-3xl w-full">{children}</div>;
+};
+
+export default Layout;
+
+````
+</div>
+
+
+<div  class="my-4">
+### **`index.tsx`**
+
+```tsx
+import {FormEvent} from 'react'
+import Layout from '../components/Layout'
+
+const [text,setText] = useState<String>("");
+
+const formSumit =(e:FormEvent<HtmlFormElement>) => {
+    e.preventDefault();
+}
+
+const Home = () => {
+    return(
+        <div>
+            <Layout>
+                <form onSubmit={formSubmit}>
+                    <input value={text}
+                        onChange={(e:FormEvent<HTmlInputTextElement>)=>
+                        setText(e.target.value)}
+                        type="text"
+                        placeholder="enter a task" />
+                    <button type="submit">Submit</button>
+                </form>
+
+                <div>
+                    {/* our task will go here */}
+                </div>
+            </Layout>
+        </div>
+    )
+}
+
+````
+
+</div>
+
+<div  class="my-4">
+### **`Task.tsx`**
+
+```tsx
+import { useState } from "react";
+
+const [checked, setChecked] = useState<boolean>(false);
+
+const Task: React.FC<{ checked: boolean; task: String }> = ({
+  checked,
+  task,
+}) => {
+  return (
+    <div className="w-full h-20 rounded-md border ">
+      <p className="text-2xl font-semibold">{task}</p>
+      <input type="checkbox" value={checked} />
+    </div>
+  );
+};
+```
+
+</div>
+
+let's use this task component in our index.tsx
+
+<div class="my-4">
+### **`index.tsx`**
+```tsx
+    <Task checked={false} task="go for shopping" />
+    <Task checked={false} task="walk the dog" />
+    <Task checked={false} task="go for shopping" />
+```
+
+</div>
+```
+
+let's create a hook for getting an array of items from the localstorage
+
+```js
+### **`getTaskList.ts`**
+const getTaskList = () => {
+  const items = localstorage.getItem("task");
+
+  return JSON.parse(JSON.stringify(items));
+};
+```

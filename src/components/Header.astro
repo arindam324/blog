@@ -5,14 +5,18 @@ import { SITE_TITLE } from "../config";
 
 <header class="flex items-center py-4 justify-between">
 	<a href="/">
-		<h2 class="text-4xl text-white font-bold">
+		<h2 class="lg:text-4xl text-2xl text-white font-bold">
 			{SITE_TITLE}
 		</h2>
 	</a>
 
-	<nav class="flex items-center space-x-4">
+	<nav class="items-center space-x-4 hidden lg:flex">
 		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
 		<HeaderLink href="/contactMe">Contact</HeaderLink>
+		<a
+			href="https://portfolio-chi-eight-57.vercel.app/"
+			target="_blank"
+			class="hover:underline">Portfolio</a
+		>
 	</nav>
 </header>

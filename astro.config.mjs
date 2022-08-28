@@ -11,7 +11,7 @@ export default defineConfig({
   markdown: {
     // syntaxHighlight: "prism",
     shikiConfig: {
-      theme: "monokai",
+      theme: "github-dark",
     },
   },
   integrations: [mdx(), sitemap(), tailwind(), preact()],
