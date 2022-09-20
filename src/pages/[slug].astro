@@ -3,13 +3,15 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Layout from "../layouts/Layout.astro";
 
-export const getStaticPaths = async () => {
-    const posts = await Astro.glob("../posts/*.mdx");
+import slugify from "slugify";
 
-    return posts.map((post) => ({
-        params: { slug: post.frontmatter.name.split(".")[0] },
-        props: { post },
-    }));
+export const getStaticPaths = async () => {
+  const posts = await Astro.glob("../posts/*.mdx");
+
+  return posts.map((post) => ({
+    params: { slug: slugify(post.frontmatter.name) },
+    props: { post },
+  }));
 };
 
 const { Content, frontmatter } = Astro.props.post;
@@ -18,19 +20,19 @@ const { name, description, date } = frontmatter;
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <BaseHead title={name} description={description} />
-    </head>
-    <body
-        class="w-full flex flex-col items-center min-h-screen p-4 bg-[#111] text-white"
-    >
-        <Layout>
-            <h1 class="lg:text-4xl pb-2 text-2xl md:text-3xl font-semibold">
-                {name}
-            </h1>
-            <p class="pb-4">{new Date(date).toDateString()}</p>
-            <Content />
-        </Layout>
-        <Footer />
-    </body>
+  <head>
+    <BaseHead title={name} description={description} />
+  </head>
+  <body
+    class="w-full flex flex-col items-center min-h-screen p-4 bg-[#111] text-white"
+  >
+    <Layout>
+      <h1 class="lg:text-4xl pb-2 text-2xl md:text-3xl font-semibold">
+        {name}
+      </h1>
+      <p class="pb-4">{new Date(date).toDateString()}</p>
+      <Content />
+    </Layout>
+    <Footer />
+  </body>
 </html>

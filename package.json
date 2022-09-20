@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@astrojs/prism": "^1.0.1",
-    "date-fns": "^2.29.2"
+    "date-fns": "^2.29.2",
+    "slugify": "^1.6.5"
   }
 }

@@ -7,6 +7,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import Layout from "../layouts/Layout.astro";
 import Footer from "../components/Footer.astro";
 
+import slugify from "slugify";
+
 const posts = await Astro.glob("../posts/*.mdx");
 ---
 
@@ -24,7 +26,7 @@ const posts = await Astro.glob("../posts/*.mdx");
         <h2 class="text-2xl font-semibold pt-6">All Posts</h2>
         {
           posts.map((post) => (
-            <a href={`/${post.frontmatter.name}`}>
+            <a href={`/${slugify(post.frontmatter.name)}`}>
               <div class="text-white mt-6 border border-[#57565699] p-4 rounded-md shadow-md lg:hover:scale-105 transition ease-out duration-100 ">
                 <h2 class="text-white text-2xl   lg:text-4xl font-bold">
                   {post.frontmatter.name}
